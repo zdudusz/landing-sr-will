@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens: the client's own colours (black shop, yellow lion logo) through the skill's brand path.
+   The kit's moment and motion layer (public/assets) read these names. */
+:root {
+  --bg: #000000;
+  --surface: #111111;
+  --ink: #f5f5f5;
+  --muted: rgba(245, 245, 245, 0.72);
+  --accent: #ecd012;
+  --accent-ink: #000000;
+  --font-display: 'Montserrat', system-ui, sans-serif;
+  --font-text: 'Barlow', system-ui, sans-serif;
+  --display-weight: 800;
+  --display-tracking: -0.035em;
+  --t-h2: clamp(36px, 5vw, 72px);
+  --t-h3: clamp(24px, 2.2vw, 32px);
+  --t-lead: 20px;
+  --t-small: 14px;
+  --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
+  --r-md: 16px; --r-lg: 20px;
+  --nav-h: 88px;
+  --bar: 0px;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --action: var(--accent);
+  --action-ink: var(--accent-ink);
+  --line-strong: rgba(245, 245, 245, 0.45);
+  --card: #111111;
+  --r-btn: 12px;
+  color-scheme: dark;
+}
+
+html, body { background: var(--bg); color: var(--ink); font-family: var(--font-text); }
+/* React's mount point adds no box: the page is header.nav, main, footer.closing, nav.actionbar. */
+#root { display: contents; }
+body { -webkit-font-smoothing: antialiased; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* Layout: one wrap, equal edges; every section at least one screen. */
+.wrap { --gutter: 20px; width: min(1200px, calc(100% - 2 * var(--gutter))); margin-inline: auto; }
+@media (min-width: 768px) { .wrap { --gutter: 40px; } }
+@media (min-width: 1200px) { .wrap { --gutter: 64px; } }
+.section { position: relative; min-height: 100vh; min-height: 100svh; padding-block: calc(var(--nav-h) + 24px) 48px; }
+@media (min-width: 1024px) { .section--one { height: 100vh; height: 100svh; } }
+.t-h2 { font-family: var(--font-display); font-weight: 800; font-size: var(--t-h2); line-height: 1; letter-spacing: var(--display-tracking); }
+.t-h2 mark { background: none; color: var(--accent); }
+
+/* Background layer (BackgroundFX): the lion watermark and the cutting scissors, behind every section. */
+.bg-fx { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; color: var(--accent); }
+.bg-fx__lion { position: absolute; right: -4vw; top: 8vh; height: 84vh; width: auto; opacity: 0.07; }
+.bg-fx__cut { position: absolute; inset: 0; }
+.bg-fx__scissors { opacity: 0.55; }
+@media (max-width: 767px) { .bg-fx__lion { right: -30vw; height: 70vh; top: 18vh; } .bg-fx__scissors { opacity: 0.4; } }
+main > section, footer.closing { position: relative; z-index: 1; }
+
+/* Photographs that melt into the black page instead of sitting in boxes. */
+.blend-b { -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); mask-image: linear-gradient(to bottom, #000 55%, transparent 100%); }
+.blend-all { -webkit-mask-image: radial-gradient(ellipse 72% 70% at 50% 42%, #000 50%, transparent 100%); mask-image: radial-gradient(ellipse 72% 70% at 50% 42%, #000 50%, transparent 100%); }
+.blend-side { -webkit-mask-image: linear-gradient(to left, #000 60%, transparent 100%), linear-gradient(to bottom, #000 70%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to left, #000 60%, transparent 100%), linear-gradient(to bottom, #000 70%, transparent 100%); mask-composite: intersect; }
+.tone { filter: saturate(0.92) contrast(1.06) brightness(0.92); }
+
+/* Panels: flat black, one hairline. */
+.panel { background: var(--surface); border: 1px solid #262626; }
+
+/* Buttons: one pair (yellow primary, outline secondary). Hover and press come from the kit's motion layer. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 22px; border-radius: var(--r-btn);
+  font-family: var(--font-display); font-weight: 700; font-size: 15px; line-height: 1; white-space: nowrap;
+}
+.btn--sm { min-height: 40px; padding: 0 16px; font-size: 14px; }
+.btn--primary { background: var(--accent); color: var(--accent-ink); }
+.btn--secondary { color: var(--ink); border: 1.5px solid rgba(245,245,245,.35); }
+.link { text-decoration: none; }
+.nav-word { position: relative; }
+.nav-word::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 8px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: right; transition: transform 150ms var(--ease); }
+.nav-word:hover::after, .nav-word:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+
+/* Photographs that lead somewhere: the kit zooms .m-zoom img; the frame clips it. */
+.m-zoom { display: block; overflow: hidden; }
+summary { list-style: none; }
+summary::-webkit-details-marker { display: none; }
+
+/* Focus and skip link. */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+.skip-link { position: fixed; left: 16px; top: 16px; z-index: 100; transform: translateY(-200%); background: var(--accent); color: var(--accent-ink); padding: 12px 18px; border-radius: 12px; font-weight: 600; }
+.skip-link:focus { transform: none; }
+
+/* Rows: name left, price right in tabular figures, one rule under each. */
+.rows > li { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; min-height: 44px; padding-block: 10px; border-bottom: 1px solid #262626; font-size: 16px; line-height: 24px; }
+.rows .rows__value { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--accent); white-space: nowrap; }
+
+/* word-highlight from the kit, on the dark page. */
+.mo-wh__text { color: var(--ink); font-weight: 800 !important; line-height: 1.08 !important; }
+
+/* Phone action bar: kept away from the first screen. */
+.actionbar { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 60; transition: transform 200ms var(--ease), opacity 200ms var(--ease); }
+.actionbar[data-hidden="true"] { transform: translateY(140%); opacity: 0; pointer-events: none; }
+@media (min-width: 768px) { .actionbar { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+}

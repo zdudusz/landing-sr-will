@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.taste-skill/
+shots/
+*.local
+.env
+.env.*
+!.env.example

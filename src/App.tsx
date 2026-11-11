@@ -142,7 +142,7 @@ function Hero() {
 
           <motion.figure {...enter(0.5)} className="relative flex items-center justify-center overflow-hidden">
             <img
-              className="w-full object-contain sm:aspect-square lg:aspect-auto lg:h-[calc(100svh-230px)]"
+              className="mx-auto h-[340px] w-auto object-contain sm:h-[420px] lg:h-[480px]"
               src="img/leao-hero.webp"
               alt="Logo da Sr. Will Barbearia — leão com coroa dourada"
               fetchPriority="high"

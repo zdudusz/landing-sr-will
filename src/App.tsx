@@ -140,18 +140,16 @@ function Hero() {
             </motion.ul>
           </div>
 
-          <motion.figure {...enter(0.5)} className="blend-all relative overflow-hidden">
-            {/* Client slot: VIDEO.hero in content.ts plays here over the team photograph. */}
+          <motion.figure {...enter(0.5)} className="relative flex items-center justify-center overflow-hidden">
             <img
-              className="tone aspect-[16/9] w-full object-cover sm:aspect-square lg:aspect-auto lg:h-[calc(100svh-230px)]"
-              src="img/equipe.webp"
-              alt="A equipe da Sr. Will Barbearia de camiseta preta e suspensório"
+              className="w-full object-contain sm:aspect-square lg:aspect-auto lg:h-[calc(100svh-230px)]"
+              src="img/leao-hero.webp"
+              alt="Logo da Sr. Will Barbearia — leão com coroa dourada"
               fetchPriority="high"
-              width={1600}
-              height={1600}
-              style={{ objectPosition: '50% 25%' }}
+              width={756}
+              height={1024}
             />
-            {hasVideo && <FadingVideo src={VIDEO.hero} poster="img/equipe.webp" className="absolute inset-0 h-full w-full object-cover" />}
+            {hasVideo && <FadingVideo src={VIDEO.hero} poster="img/leao-hero.webp" className="absolute inset-0 h-full w-full object-contain" />}
           </motion.figure>
         </div>
 
